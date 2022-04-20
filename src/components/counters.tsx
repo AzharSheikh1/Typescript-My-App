@@ -11,15 +11,18 @@ type CountersProps = {
 
 class Counters extends Component<CountersProps> {
 
-    render() : JSX.Element { 
+    render() : JSX.Element {
+        const {onDelete, onIncrement, onReset, counters} = this.props
         return (
             <div>
-                <button onClick={this.props.onReset} className='btn btn-secondary btn-sm m-2'>Reset</button>
-                <br />
-                {this.props.counters.map((counter: { id: React.Key | null | undefined; }) => 
+                <button 
+                    onClick={ onReset } 
+                    className='btn btn-secondary btn-sm m-2'>Reset
+                </button><br />
+                { counters.map((counter: { id: React.Key | null | undefined; } ) => 
                 <Counter key={counter.id} 
-                    onDelete={this.props.onDelete} 
-                    onIncrement={this.props.onIncrement}
+                    onDelete={ onDelete } 
+                    onIncrement={ onIncrement }
                     counter={counter}/>)}
             </div>
         );

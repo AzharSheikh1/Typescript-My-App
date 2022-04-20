@@ -1,23 +1,25 @@
-import React, { Component } from 'react';
 
-type NavProps = {
-    totalCounter : number;
+interface totalCounter {
+    totalCounter : any,
 }
 
-class NavBar extends Component<NavProps> {
-    render() { 
-        return ( 
-            <nav className="navbar navbar-light bg-light">
-                <a className="navbar-brand" href="#">
-                    NavBar
-                    <span className='badge badge-pill badge-secondary m-2'>
-                        {this.props.totalCounter}
-                    </span>
-                </a>
-                
-            </nav>
-         );
-    }
+const NavBar = ({ totalCounter } : totalCounter) => {
+    return ( 
+        <nav className="navbar navbar-light bg-light">
+            <a className="navbar-brand" href="#">
+                NavBar
+                <span className='badge badge-pill badge-secondary m-2'>
+                    {totalCounter}
+                </span>
+            </a>
+            
+        </nav>
+     );
 }
+
+// class NavBar extends Component<NavProps> {
+//     render() { 
+//     }
+// }
  
 export default NavBar;
