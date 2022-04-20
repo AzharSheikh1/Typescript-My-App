@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 
 type CounterProps = {
-    value : number,
-    selected? : boolean
+    counter : any,
+    onDelete :(id : number) => void,
+    onIncrement :(counter : {id:number, value:number}) => void,
 }
  
 class Counter extends Component<CounterProps> {
-    state = {
-        value:this.props.value,
-        tags : []
-    };
 
     // constructor() {
     //     super();
@@ -25,16 +22,13 @@ class Counter extends Component<CounterProps> {
     //     return <ul>{this.state.tags.map(tag => <li key={tag}> {tag} </li>)}</ul>;
     // }
 
-    handleIncrement = (product: {id : number}) : void => {
-        this.setState({value:this.state.value + 1})
-    }
-
     render() : JSX.Element { 
 
         return (
         <React.Fragment>
-            <span className={this.getbadgeClasses()}>{this.state.value}</span>
-            <button onClick={() => this.handleIncrement({id:1})} className="btn btn-primary">Increament</button>
+            <span className={this.getbadgeClasses()}>{this.formatCount()}</span>
+            <button onClick={() => this.props.onIncrement(this.props.counter)} className="btn btn-primary">Increament</button>
+            <button onClick={() => this.props.onDelete(this.props.counter.id)} className='btn btn-danger m-2'>Delete</button>
             <br />
         </React.Fragment>
         );
@@ -42,14 +36,14 @@ class Counter extends Component<CounterProps> {
 
     getbadgeClasses() : string {
         let classes : string = "badge m-2 badge-";
-        classes += (this.state.value === 0) ? 'warning' : 'primary';
+        classes += (this.props.counter.value === 0) ? 'warning' : 'primary';
         return classes;
     }
 
-    // formatCount() : string | number{
-    //     const {count}  = this.state;
-    //     return count === 0 ? 'Zero' : count;
-    // }
+    formatCount() : string | number{
+        const {value}  = this.props.counter;
+        return value === 0 ? 'Zero' : value;
+    }
 }
  
 export default Counter;
