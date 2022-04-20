@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
+type CounterProps = {
+    value : number,
+    selected? : boolean
+}
  
-class Counter extends Component {
+class Counter extends Component<CounterProps> {
     state = {
-        count:0,
+        value:this.props.value,
         tags : []
     };
 
@@ -22,25 +26,25 @@ class Counter extends Component {
     // }
 
     handleIncrement = (product: {id : number}) : void => {
-        console.log(product)
-        this.setState({count:this.state.count + 1})
+        this.setState({value:this.state.value + 1})
     }
 
     render() : JSX.Element { 
 
         return (
         <React.Fragment>
-            <span className='badge m-2 badge-primary'>{this.state.count}</span>
+            <span className={this.getbadgeClasses()}>{this.state.value}</span>
             <button onClick={() => this.handleIncrement({id:1})} className="btn btn-primary">Increament</button>
+            <br />
         </React.Fragment>
         );
     }
 
-    // getbadgeClasses() : string {
-    //     let classes : string = "badge m-2 badge-";
-    //     classes += (this.state.count === 0) ? 'warning' : 'primary';
-    //     return classes;
-    // }
+    getbadgeClasses() : string {
+        let classes : string = "badge m-2 badge-";
+        classes += (this.state.value === 0) ? 'warning' : 'primary';
+        return classes;
+    }
 
     // formatCount() : string | number{
     //     const {count}  = this.state;
