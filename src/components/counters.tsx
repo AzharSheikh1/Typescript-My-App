@@ -1,48 +1,25 @@
 import React, { Component } from 'react';
 import Counter from './counter';
- 
-class Counters extends Component {
 
-    state = {
-        counters : [
-            {id : 1, value : 4},
-            {id : 2, value : 0},
-            {id : 3, value : 0},
-            {id : 4, value : 1},
-        ]
-    }
+type CountersProps = {
+    counters : any,
+    onDelete :(id : number) => void,
+    onIncrement :(counter : {id:number, value:number}) => void,
+    onReset : () => void,
+}
 
-    handleReset = () => {
-        const counters = this.state.counters.map(c => {
-            c.value = 0;
-            return c;
-        });
-        this.setState({counters})
-    }
 
-    handleDelete = (id : number) : void => {
-        const counters = this.state.counters.filter(c => c.id !== id);
-        this.setState({counters});
-    }
-
-    handleIncrement = (counter : {id:number, value:number}) : void => {
-        const counters = [...this.state.counters];
-        const index = counters.indexOf(counter);
-        counters[index] = {...counter};
-        counters[index].value++;
-
-        this.setState({counters});
-    }
+class Counters extends Component<CountersProps> {
 
     render() : JSX.Element { 
         return (
             <div>
-                <button onClick={this.handleReset} className='btn btn-secondary btn-sm m-2'>Reset</button>
+                <button onClick={this.props.onReset} className='btn btn-secondary btn-sm m-2'>Reset</button>
                 <br />
-                {this.state.counters.map(counter => 
+                {this.props.counters.map((counter: { id: React.Key | null | undefined; }) => 
                 <Counter key={counter.id} 
-                    onDelete={this.handleDelete} 
-                    onIncrement={this.handleIncrement}
+                    onDelete={this.props.onDelete} 
+                    onIncrement={this.props.onIncrement}
                     counter={counter}/>)}
             </div>
         );
