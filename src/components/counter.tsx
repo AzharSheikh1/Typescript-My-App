@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
 type CounterProps = {
-    counter : any,
+    counter : {id:number, value:number},
     onDelete :(id : number) => void,
     onIncrement :(counter : {id:number, value:number}) => void,
+    onDecrement :(counter : {id:number, value:number}) => void,
+    
 }
  
 class Counter extends Component<CounterProps> {
@@ -12,10 +14,26 @@ class Counter extends Component<CounterProps> {
 
         return (
         <React.Fragment>
-            <span className={this.getbadgeClasses()}>{this.formatCount()}</span>
-            <button onClick={() => this.props.onIncrement(this.props.counter)} className="btn btn-primary">Increament</button>
-            <button onClick={() => this.props.onDelete(this.props.counter.id)} className='btn btn-danger m-2'>Delete</button>
-            <br />
+            <div className='row'>
+                <div className="col-1">
+                    <span className={this.getbadgeClasses()}>{this.formatCount()}</span>
+                </div>
+                <div className="col">
+                    <button 
+                        onClick={() => this.props.onIncrement(this.props.counter)} 
+                        className="btn btn-primary btn-sm">+
+                    </button>
+                    <button 
+                        disabled={(this.props.counter.value <= 0)} 
+                        onClick={() => this.props.onDecrement(this.props.counter)} 
+                        className="btn btn-secondary btn-sm m-2">-
+                    </button>
+                    <button 
+                        onClick={() => this.props.onDelete(this.props.counter.id)} 
+                        className='btn btn-danger btn-sm'>X
+                    </button>
+                </div>
+            </div>
         </React.Fragment>
         );
     }
